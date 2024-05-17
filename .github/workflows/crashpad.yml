@@ -1,0 +1,91 @@
+name: crashpad
+
+on:
+  push:
+    paths:
+      - '.github/workflows/crashpad.yml'
+      - 'ports/crashpad/**'
+  pull_request:
+    paths:
+      - '.github/workflows/crashpad.yml'
+      - 'ports/crashpad/**'
+
+jobs:
+  build-ubuntu:
+    name: Build on ubuntu
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, ubuntu-22.04]
+        triplet: [x64-linux]
+
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install vcpkg-tool
+        shell: bash
+        run: ./bootstrap-vcpkg.sh
+
+      - name: Build
+        shell: bash
+        run: |
+          ./vcpkg install crashpad --triplet ${{ matrix.triplet }} \
+          || (cat ./installed/vcpkg/issue_body.md && exit 1)
+
+  build-macos:
+    name: Build on macos
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-14, macos-13]
+        triplet: [x64-osx, arm64-osx]
+
+    steps:
+      - name: Install deps
+        shell: bash
+        run: |
+          if [ "${{ matrix.os }}" = "macos-14" ]; then
+            brew install python-setuptools
+          else
+            pip3 install setuptools
+          fi
+
+      - uses: actions/checkout@v4
+
+      - name: Install vcpkg-tool
+        shell: bash
+        run: ./bootstrap-vcpkg.sh
+
+      - name: Build
+        shell: bash
+        run: |
+          ./vcpkg install crashpad --triplet ${{ matrix.triplet }} \
+          || (cat ./installed/vcpkg/issue_body.md && exit 1)
+
+  build-windows:
+    name: Build on windows
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-2022, windows-2019]
+        triplet: 
+          - x64-windows
+          - x64-windows-static-md
+          - x86-windows
+          - x86-windows-static-md
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install vcpkg-tool
+        shell: pwsh
+        run: .\bootstrap-vcpkg.bat
+
+      - name: Build
+        shell: bash
+        run: |
+          ./vcpkg.exe install crashpad --triplet ${{ matrix.triplet }} \
+          || (cat ./installed/vcpkg/issue_body.md && exit 1)
