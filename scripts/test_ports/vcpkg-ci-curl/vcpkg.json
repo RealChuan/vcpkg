@@ -8,6 +8,12 @@
     {
       "name": "curl",
       "features": [
+        "idn"
+      ]
+    },
+    {
+      "name": "curl",
+      "features": [
         "http2",
         "zstd"
       ]
@@ -23,8 +29,16 @@
     {
       "name": "curl",
       "features": [
-        "idn"
-      ]
+        "psl"
+      ],
+      "platform": "!uwp"
+    },
+    {
+      "name": "curl",
+      "features": [
+        "gssapi"
+      ],
+      "platform": "linux | osx"
     },
     {
       "name": "curl",
@@ -33,13 +47,6 @@
         "tool"
       ],
       "platform": "!android & !uwp"
-    },
-    {
-      "name": "curl",
-      "features": [
-        "gssapi"
-      ],
-      "platform": "linux | osx"
     }
   ]
 }
