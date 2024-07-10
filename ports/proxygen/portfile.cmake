@@ -2,8 +2,8 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO facebook/proxygen
     REF "v${VERSION}"
-    SHA512 fc098abcb4fd352cb43fed79d6890bed511107cf2e15fac6f87dd3ad0d61b0a5f8183d2632f000052a66c7aa8e5cf838fed30889fda74cab1d41d1d7e9c8cf29
-    HEAD_REF master
+    SHA512 1b46f92e70461413648915440aec522e2560da3bfcb4b5b2b379f01909f23070ea87d0d246707e8dad125e22850a8d090474c56d8ac64b26e88edbaba3db6809
+    HEAD_REF main
     PATCHES
         remove-register.patch
         fix-zstd-zlib-dependency.patch
