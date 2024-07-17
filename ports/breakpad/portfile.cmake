@@ -9,6 +9,7 @@ vcpkg_from_github(
     PATCHES 
         fix-static.patch
         add-algorithm.patch # https://github.com/google/breakpad/commit/898a997855168c0e6a689072fefba89246271a5d
+        add-algorithm-1.patch
 )
 
 if(VCPKG_HOST_IS_LINUX OR VCPKG_TARGET_IS_LINUX OR VCPKG_TARGET_IS_ANDROID)
