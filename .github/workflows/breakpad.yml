@@ -39,7 +39,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-14, macos-13, macos-12]
+        os: [macos-15, macos-14, macos-13]
         triplet: [x64-osx, arm64-osx]
 
     steps:
@@ -61,7 +61,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-2022, windows-2019]
+        os: [windows-2025, windows-2022, windows-2019]
         triplet: 
           - x64-windows
           - x64-windows-static-md
